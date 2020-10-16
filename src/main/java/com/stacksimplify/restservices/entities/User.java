@@ -1,10 +1,12 @@
 package com.stacksimplify.restservices.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NotFound;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -28,6 +30,17 @@ public class User {
     private String role;
     @Column(name = "SSN")
     private String ssn;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 
     public User(){}
 

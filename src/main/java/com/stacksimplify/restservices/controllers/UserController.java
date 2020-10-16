@@ -22,18 +22,19 @@ import java.util.Optional;
 
 @RestController
 @Validated
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> findAllUsers()
     {
         return  userService.getAllUser();
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<Void> saveUser(@Valid @RequestBody User user, UriComponentsBuilder builder){
         try {
             userService.createUser(user);
@@ -45,7 +46,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     public Optional<User> findByUserId(@PathVariable @Min(1) Long id)
     {
         try {
@@ -55,7 +56,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/{id}")
     public User updateUserById(@PathVariable Long id, @RequestBody User user)
     {
         try {
@@ -65,13 +66,13 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id)
     {
         userService.deleteUser(id);
     }
 
-    @GetMapping("users/findByName/{name}")
+    @GetMapping("/findByName/{name}")
     public User findByName(@PathVariable String name) throws UserNameNotFoundException {
         return userService.findUserByUserName(name);
     }
