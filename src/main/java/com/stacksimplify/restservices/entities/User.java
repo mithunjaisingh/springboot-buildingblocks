@@ -1,6 +1,10 @@
 package com.stacksimplify.restservices.entities;
 
+import org.hibernate.annotations.NotFound;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
@@ -10,8 +14,10 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "UserName is mandatory Field.")
     @Column(name = "USER_NAME")
     private String userName;
+    @Size(min = 2,message = "FirstName should be atleast 2 Characters")
     @Column(name = "FIRST_NAME")
     private String firstName;
     @Column(name = "LAST_NAME")
@@ -59,6 +65,7 @@ public class User {
     public String getUserName() {
         return userName;
     }
+
 
     public void setUserName(String userName) {
         this.userName = userName;
